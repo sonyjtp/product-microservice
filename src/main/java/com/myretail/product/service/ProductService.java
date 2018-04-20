@@ -3,7 +3,7 @@ package com.myretail.product.service;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
+//import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.myretail.product.domain.Product;
@@ -32,10 +32,10 @@ public class ProductService {
 			String errorMessage = String.format("Invalid product id: %d", id);
 			log.error(errorMessage);
 			throw new MyRetailException(e, errorMessage);
-		}catch(DataAccessException e) {
-			String errorMessage = "Unable to access database";
-			log.error(errorMessage);
-			throw new MyRetailException(e, errorMessage);
+//		}catch(DataAccessException e) {
+//			String errorMessage = "Unable to access database";
+//			log.error(errorMessage);
+//			throw new MyRetailException(e, errorMessage);
 		}
 		
 		return product;
