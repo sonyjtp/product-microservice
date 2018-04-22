@@ -1,43 +1,60 @@
 package com.myretail.product.service;
 
-import java.util.NoSuchElementException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.myretail.product.domain.Product;
+import com.myretail.product.builder.ProductBuilder;
+import com.myretail.product.domain.Pricing;
 import com.myretail.product.exception.MyRetailException;
-import com.myretail.product.repository.ProductRepository;
+import com.myretail.product.vo.Product;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Service
-public class ProductService {
-
-	private ProductRepository productRepository;
-
-//	@Autowired
-//	public ProductService(ProductRepository productRepository) {
-//		this.productRepository = productRepository;
-//	}
-
-	public Product get(Long id) throws MyRetailException {
-		Product product = null;
-		try {
-//			product = productRepository.findById(id).get();
-			product = new Product();
-		} catch (NoSuchElementException e) {
-			String errorMessage = String.format("Invalid product id: %d", id);
-			log.error(errorMessage);
-			throw new MyRetailException(e, errorMessage);
-//		}catch(DataAccessException e) {
-//			String errorMessage = "Unable to access database";
-//			log.error(errorMessage);
-//			throw new MyRetailException(e, errorMessage);
-		}
+public class ProductService implements MyRetailService<Product, Long> {
+	
+	private MyRetailService<Pricing, Long> pricingService;
+	
+	@Autowired
+	public ProductService(MyRetailService<Pricing, Long> pricingService) {
+		this.pricingService = pricingService;
 		
-		return product;
 	}
+
+	@Override
+	public List<Product> findAll() throws MyRetailException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Product find(Long id) throws MyRetailException {
+		Pricing pricing =pricingService.find(id);
+		return new ProductBuilder(id).setName("").setCurrentPrice(pricing.getCurrentPrice()).build();
+	}
+
+	@Override
+	public void create(Product t) throws MyRetailException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Product save(Product t) throws MyRetailException {
+		pricingService.save(new Pricing(t.getId(), t.getCurrentPrice()));
+		return find(t.getId());
+	}
+
+	@Override
+	public void delete(Product t) throws MyRetailException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean exists(Long id) throws MyRetailException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
