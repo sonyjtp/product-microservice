@@ -1,6 +1,5 @@
 package com.myretail.product.config;
 
-<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,14 +18,6 @@ public class MyRetailSecurityConfig  extends WebSecurityConfigurerAdapter
 	@Autowired
 	private UserDetailsService userDetailsService;
 
-=======
-//@Configuration
-public class MyRetailSecurityConfig // extends WebSecurityConfigurerAdapter
-{
->>>>>>> branch 'develop' of https://github.com/sonyjtp/product-microservice.git
-	
-<<<<<<< HEAD
-	
  	@Override
  	protected void configure(HttpSecurity http) throws Exception {
  		http.authorizeRequests().antMatchers("/**").permitAll();
@@ -49,8 +40,8 @@ public class MyRetailSecurityConfig // extends WebSecurityConfigurerAdapter
  	    authProvider.setPasswordEncoder(passwordEncoder());
  	    return authProvider;
  	}
-=======
-// 	@Override
+
+ 	// 	@Override
 // 	protected void configure(HttpSecurity http) throws Exception {
 // 		http.authorizeRequests().antMatchers("/**").permitAll();
 // 	}
@@ -59,6 +50,5 @@ public class MyRetailSecurityConfig // extends WebSecurityConfigurerAdapter
 // 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 // 		auth.inMemoryAuthentication().withUser("sony").password("sony").roles("ADMIN", "USER");
 // 	}
->>>>>>> branch 'develop' of https://github.com/sonyjtp/product-microservice.git
 
 }
