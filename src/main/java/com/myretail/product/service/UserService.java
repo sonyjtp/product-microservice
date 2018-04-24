@@ -13,19 +13,16 @@ public class UserService {
 
 	private UserRepository userRepository;
 	
-	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
-		this.passwordEncoder = passwordEncoder;
 	}
 
 
 	public User save(User user) throws MyRetailException {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepository.save(user);
-		return userRepository.findById(user.getUsername()).get();
+		return userRepository.findByUsername(user.getUsername());
 	}
 	
 }

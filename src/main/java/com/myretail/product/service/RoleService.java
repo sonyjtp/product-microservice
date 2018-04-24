@@ -22,6 +22,6 @@ private RoleRepository roleRepository;
 
 	public Role save(Role role) throws MyRetailException {
 		roleRepository.save(role);
-		return roleRepository.findById(role.getRoleName()).get();
+		return roleRepository.findByRoleName(role.getRoleName());
 	}
 }

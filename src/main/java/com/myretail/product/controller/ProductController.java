@@ -9,6 +9,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,7 +39,7 @@ public class ProductController {
 		this.productService = productService;
 	}
 
-	@Consumes({APPLICATION_JSON})
+	@Consumes(MediaType.APPLICATION_JSON_VALUE)
 	@PostMapping
 	public ResponseEntity<MyRetailResponse> create(@RequestBody Product product) throws MyRetailException {
 		productService.save(product);
