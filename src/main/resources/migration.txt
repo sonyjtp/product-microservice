@@ -1,0 +1,2 @@
+1.	Generate dummy password
+2.	Replace the password in migration.json and run the query

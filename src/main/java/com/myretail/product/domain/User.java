@@ -1,6 +1,6 @@
 package com.myretail.product.domain;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -30,7 +30,7 @@ public class User {
 	private transient String password;
 	
 	@DBRef
-	private List<Role> roles;
+	private Set<Role> roles;
 
 	@Override
 	public String toString() {

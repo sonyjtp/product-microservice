@@ -10,6 +10,9 @@ import com.myretail.product.domain.User;
 import com.myretail.product.repository.UserRepository;
 import com.myretail.product.vo.MyRetailUserDetails;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class MyRetailUserDetailsService implements UserDetailsService {
 
@@ -23,8 +26,12 @@ public class MyRetailUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUsername(username);
-		if(user ==null)
+		if(user ==null) {
+			log.info("User =================>" + null);
 			throw new UsernameNotFoundException( username);
+		}
+			
+		log.info("User =================>" + user.toString());
 		return new MyRetailUserDetails(user);
 	}
 
