@@ -12,7 +12,7 @@ public interface MyRetailService<T, ID> {
 
 	void create(T t)  throws MyRetailException;
 
-	T save(T t)  throws MyRetailException;
+	void save(T t)  throws MyRetailException;
 
 	void delete(T t)  throws MyRetailException;
 

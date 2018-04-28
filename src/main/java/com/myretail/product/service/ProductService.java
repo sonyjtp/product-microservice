@@ -40,9 +40,8 @@ public class ProductService implements MyRetailService<Product, Long> {
 	}
 
 	@Override
-	public Product save(Product t) throws MyRetailException {
+	public void save(Product t) throws MyRetailException {
 		pricingService.save(new Pricing(t.getId(), t.getCurrentPrice()));
-		return find(t.getId());
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.myretail.product.domain.Pricing;
@@ -47,14 +48,16 @@ public class PricingService implements MyRetailService<Pricing, Long> {
 		return pricing;
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@Override
 	public void create(Pricing t) {
 		// TODO Auto-generated method stub
 
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@Override
-	public Pricing save(Pricing t) throws MyRetailException {
+	public void save(Pricing t) throws MyRetailException {
 		try {
 			t = pricingRepository.save(t);
 		} catch (DataAccessException e) {
@@ -62,9 +65,9 @@ public class PricingService implements MyRetailService<Pricing, Long> {
 			log.error(e.getMessage(), e);
 			throw new MyRetailException(e, errorMessage);
 		}
-		return t;
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@Override
 	public void delete(Pricing t) {
 		// TODO Auto-generated method stub
