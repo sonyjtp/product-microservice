@@ -30,7 +30,7 @@ public class User {
 	private transient String password;
 	
 	@DBRef
-	private Set<Role> roles;
+	private Set<String> roles;
 
 	@Override
 	public String toString() {
