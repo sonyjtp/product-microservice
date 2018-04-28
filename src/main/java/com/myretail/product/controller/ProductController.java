@@ -23,6 +23,7 @@ import com.myretail.product.constants.MyRetailConstants;
 import com.myretail.product.exception.MyRetailException;
 import com.myretail.product.service.MyRetailService;
 import com.myretail.product.service.ProductService;
+import com.myretail.product.util.JsonUtils;
 import com.myretail.product.vo.MyRetailResponse;
 import com.myretail.product.vo.Product;
 import com.myretail.product.vo.ProductResponse;
@@ -42,8 +43,10 @@ public class ProductController {
 	@Consumes(MediaType.APPLICATION_JSON_VALUE)
 	@PostMapping
 	public ResponseEntity<MyRetailResponse> create(@RequestBody Product product) throws MyRetailException {
-		productService.save(product);
-		return new ResponseEntity<>(new ProductResponse("Successfully created new product"), CREATED);
+		productService.create(product);
+		return new ResponseEntity<>(new ProductResponse(
+				String.format("Successfully created new product: %s", product.toString())), 
+				CREATED);
 	}
 	
 	@GetMapping("/{id}")
@@ -51,11 +54,19 @@ public class ProductController {
 			throws MyRetailException {
 		return new ResponseEntity<>(productService.find(id), OK);
 	}
-
+	
+	@GetMapping("")
+	public ResponseEntity<MyRetailResponse> get() throws MyRetailException {
+		return new ResponseEntity<>(new ProductResponse(JsonUtils.getJsonStringFromList(productService.findAll())), OK);
+	}
+	
 	@PutMapping("/{id}")
 	@Consumes({ APPLICATION_JSON })
 	public ResponseEntity<MyRetailResponse> updatePrice(@RequestBody Product product) throws MyRetailException {
-		return new ResponseEntity<>(productService.save(product), OK);
+		productService.save(product);
+		return new ResponseEntity<>(new ProductResponse(
+				String.format("Successfully updated product: %s", product.toString())), 
+				OK);
 	}
 
 }
