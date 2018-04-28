@@ -11,10 +11,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static com.myretail.product.constants.MyRetailConstants.ROLE_ADMIN;
+import static com.myretail.product.constants.MyRetailConstants.ROLE_USER;
 
-@EnableGlobalMethodSecurity( securedEnabled = true )
+@EnableGlobalMethodSecurity(securedEnabled = true)
 @Configuration
-public class MyRetailSecurityConfig extends WebSecurityConfigurerAdapter {	
+public class MyRetailSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService myRetailUserDetailsService;
@@ -23,13 +25,16 @@ public class MyRetailSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configAuthBuilder(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(myRetailUserDetailsService).passwordEncoder(passwordEncoder());
 	}
-	
-	
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.httpBasic();
-		http.csrf().disable().authorizeRequests().antMatchers("/products/*").authenticated();
+		http.httpBasic().and().csrf().disable().authorizeRequests(
+				).antMatchers("/products").hasRole(ROLE_USER)
+				.antMatchers("/products/*").hasRole(ROLE_USER)
+				.antMatchers("/users").hasRole(ROLE_ADMIN)
+				.antMatchers("/users/*").hasRole(ROLE_ADMIN)
+				.anyRequest().authenticated();
+
 	}
 
 	@Bean
