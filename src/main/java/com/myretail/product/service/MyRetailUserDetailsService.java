@@ -27,11 +27,10 @@ public class MyRetailUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUsername(username);
 		if(user ==null) {
-			log.info("User =================>" + null);
+			log.info("User: null");
 			throw new UsernameNotFoundException( username);
 		}
-			
-		log.info("User =================>" + user.toString());
+		log.info(String.format("User: %s", user.toString()));
 		return new MyRetailUserDetails(user);
 	}
 

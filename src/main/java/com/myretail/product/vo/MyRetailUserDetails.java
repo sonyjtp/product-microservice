@@ -9,7 +9,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.myretail.product.domain.Role;
 import com.myretail.product.domain.User;
 
 
@@ -28,9 +27,9 @@ public class MyRetailUserDetails implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-		Set<Role> roles = user.getRoles();
-		for( Role role : roles ) {
-			authorities.add( new SimpleGrantedAuthority(role.getRoleName()) ); 
+		Set<String> roles = user.getRoles();
+		for( String role : roles ) {
+			authorities.add( new SimpleGrantedAuthority(role)); 
 		}
 		return authorities;
 	}
