@@ -1,21 +1,15 @@
-db.role.insert({
+db.user.insert({
 	"_id": NumberLong(1),
-	"roleName": "admin",
-	"roleDescription": "Administrator",
-	"_class": "com.myretail.product.domain.Role"
-});
-
-db.role.insert({
-	"_id": NumberLong(2),
-	"roleName": "user",
-	"roleDescription": "User",
-	"_class": "com.myretail.product.domain.Role"
+	"username": "admin",
+	"password": "",
+	"roles": ['ADMIN','USER'],
+	"_class": "com.myretail.product.domain.User"
 });
 
 db.user.insert({
-	"_id": 1,
-	"username": "myretail",
+	"_id": NumberLong(2),
+	"username": "user",
 	"password": "",
-	"roles": [DBRef("role", NumberLong(1))],
+	"roles": ['USER'],
 	"_class": "com.myretail.product.domain.User"
 });
