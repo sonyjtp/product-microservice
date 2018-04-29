@@ -9,16 +9,21 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
-
+/**
+ * Aspect for addressing the logging cross-cutting concern when the active profile is
+ * dev. 
+ * @author Sony Thomas
+ *
+ */
 @Slf4j
 @Aspect
 @Component
 public class LoggerAspect {
 
-	@Pointcut("execution(* com.myretail.*.*.*(..))")
-	private void executionJoinPoint() {}
+	@Pointcut("within(com.myretail..*)")
+	private void loggingJoinPoint() {}
 	
-	@Around("executionJoinPoint()")
+	@Around("loggingJoinPoint()")
 	public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
 //		if(log.isDebugEnabled()){
 		long start = System.currentTimeMillis();
