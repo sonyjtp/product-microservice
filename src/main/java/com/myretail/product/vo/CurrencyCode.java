@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum CurrencyCode {
 
-	USD("US Dollar"),
-	AUD("Australian Dollar"),
-	GBP("Pound Sterling"),
-	EUR("Euro"),
-	INR("Indian Rupee");
+	USD("USD"),
+	AUD("AUD"),
+	GBP("GBP"),
+	EUR("EUR"),
+	INR("INR");
 	
 	private String currencyCode;
 	

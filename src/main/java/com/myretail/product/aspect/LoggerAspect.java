@@ -9,9 +9,10 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
+
 /**
- * Aspect for addressing the logging cross-cutting concern when the active profile is
- * dev. 
+ * Aspect for addressing the logging cross-cutting concern
+ * 
  * @author Sony Thomas
  *
  */
@@ -20,25 +21,34 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class LoggerAspect {
 
+	/**
+	 * Dummy method for defining Around advice 
+	 */
 	@Pointcut("within(com.myretail..*)")
-	private void loggingJoinPoint() {}
-	
+	private void loggingJoinPoint() {
+	}
+
+	/**
+	 * Advice to log method entry, method exit and execution time of each method
+	 * @param joinPoint
+	 * @return return value of the executed method
+	 * @throws Throwable
+	 */
 	@Around("loggingJoinPoint()")
 	public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
-//		if(log.isDebugEnabled()){
-		long start = System.currentTimeMillis();
-			log.info(MessageFormat.format("Entering method: {0}", joinPoint.getSignature().toShortString()));
-//	}
-			Object retVal = joinPoint.proceed();
-//		if(log.isDebugEnabled()) {
-			
+		long start = 0l;
+		if (log.isDebugEnabled()) {
+			start = System.currentTimeMillis();
+			log.info(MessageFormat.format("{0} -->", joinPoint.getSignature().toShortString()));
+		}
+		Object retVal = joinPoint.proceed();
+		if (log.isDebugEnabled()) {
 			log.info(MessageFormat.format("Return value: {0}", retVal.toString()));
 			long executionTime = System.currentTimeMillis() - start;
-			log.info(joinPoint.getSignature() + " executed in " + executionTime/1000 + " s");
-			log.info(MessageFormat.format("Exiting method: {0}", joinPoint.getSignature().toShortString()));
-			
-//		}
+			log.info(MessageFormat.format("{0}  executed in {1} ms", joinPoint.getSignature(), executionTime));
+			log.info(MessageFormat.format("{0} <--", joinPoint.getSignature().toShortString()));
+		}
 		return retVal;
 	}
-	
+
 }
