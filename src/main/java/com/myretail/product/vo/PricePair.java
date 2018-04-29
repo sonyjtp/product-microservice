@@ -2,8 +2,10 @@ package com.myretail.product.vo;
 
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class PricePair {
 
 	private CurrencyCode currencyCode;
