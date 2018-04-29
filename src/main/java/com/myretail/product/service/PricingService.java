@@ -27,8 +27,7 @@ public class PricingService implements MyRetailService<Pricing, Long> {
 
 	@Override
 	public List<Pricing> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return pricingRepository.findAll();
 	}
 
 	@Override

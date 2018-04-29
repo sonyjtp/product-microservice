@@ -20,5 +20,9 @@ public class MyRetailException extends Exception {
 		this.exception = e;
 		this.errorMessage = errorMessage;
 	}
+	
+	public MyRetailException(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
 
 }

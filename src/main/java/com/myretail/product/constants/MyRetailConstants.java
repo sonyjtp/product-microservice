@@ -18,5 +18,7 @@ public class MyRetailConstants {
 	public static final String COLL_PRICING = "pricing";
 	public static final String COLL_USER = "user";
 	public static final String COLL_ROLE = "role";
+	
+	public static final String PRODUCT_INFO_EXCLUDES="excludes";
 
 }
